@@ -6,9 +6,8 @@ Output the user id and the average number of the days between posts.
 Assumptions:
 
 A user can post several times a day.
-When calculating the differences between dates, output the component of the time in the form of days. For example, 10 days or 5.5 days.*/
-
-
+When calculating the differences between dates, output the component of the time in the form of days. For example, 10 days or 5.5 days.
+Reference 👉🏻 https://datalemur.com/questions/sql-average-post-hiatus-2*/
 
 
 --solution 

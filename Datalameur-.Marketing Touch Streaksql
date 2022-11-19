@@ -1,0 +1,18 @@
+--Problem
+/*Background: Marketing touches, also known as touch points, are a brand's point of contact with its customers.
+
+As a Data Analyst on Snowflake's Marketing Analytics team, you're examining customer relationship management (CRM) data to find contacts that meet 2 conditions:
+
+Had a marketing touch for 3 or more weeks in a row
+At least one of their marketing touches was a 'trial_request' type
+List all the emails for these contacts.
+reference 👉🏼 https://datalemur.com/questions/marketing-touch-streak */
+
+--solution
+with week_cte as (SELECT m.*,c.email,date_part('week',event_date) as contract_week FROM 
+marketing_touches m join crm_contacts c on m.contact_id = c.contact_id ),
+ranked_cte as (select *,rank() over
+(PARTITION BY contact_id order by contract_week) as rn
+ from week_cte)
+select email from ranked_cte where rn >= 3 group by contact_id,email 
+ having count(event_type like '%trial_request%') >= 1 order by contact_id;
